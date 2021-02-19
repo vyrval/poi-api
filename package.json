@@ -1,0 +1,19 @@
+{
+  "name": "poi-api",
+  "version": "0.0.1",
+  "description": "Goal is to have a REST API to link clicks and printed ads to points of interest",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vyrval/poi-api.git"
+  },
+  "author": "K/ourio Alexandre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vyrval/poi-api/issues"
+  },
+  "homepage": "https://github.com/vyrval/poi-api#readme"
+}
