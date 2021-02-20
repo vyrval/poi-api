@@ -9,6 +9,9 @@
     "lintfix": "eslint . --fix",
     "test": "mocha"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vyrval/poi-api.git"
