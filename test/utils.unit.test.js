@@ -1,5 +1,6 @@
 const assert = require('assert');
 const { linkEventsToPOI } = require('../src/utils');
+
 const INPUT = [
   {
     lat: 48,
