@@ -1,5 +1,5 @@
-const assert = require('assert');
-const { linkEventsToPOI } = require('../src/utils');
+import assert from 'assert';
+import { linkEventsToPOI } from '../src/utils.js';
 
 const INPUT = [
   {

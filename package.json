@@ -12,6 +12,7 @@
   "engines": {
     "node": "14.x"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vyrval/poi-api.git"
@@ -25,7 +26,9 @@
   "dependencies": {
     "@fast-csv/parse": "^4.3.6",
     "express": "^4.17.1",
-    "geolib": "^3.3.1"
+    "geolib": "^3.3.1",
+    "swagger-jsdoc": "^7.0.0-rc.2",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "eslint": "^7.20.0",

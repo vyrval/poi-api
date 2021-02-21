@@ -1,4 +1,6 @@
-const { getDistance } = require('geolib');
+import geolib from 'geolib';
+
+const { getDistance } = geolib;
 
 /**
  * Links points within data to closest poi
@@ -41,4 +43,7 @@ function linkEventsToPOI(data, inputArray) {
 
   return dictPOI;
 }
-exports.linkEventsToPOI = linkEventsToPOI;
+
+export {
+  linkEventsToPOI,
+};

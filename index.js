@@ -1,8 +1,12 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const csv = require('@fast-csv/parse');
-const { linkEventsToPOI } = require('./src/utils');
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import csv from '@fast-csv/parse';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerOptions from './swaggerOptions.js';
+import { linkEventsToPOI } from './src/utils.js';
 
 let port = process.env.PORT;
 if (!port || port === '') {
@@ -19,6 +23,9 @@ const app = express();
 app.use(express.json());
 
 const server = app.listen(port, async () => {
+  const swaggerSpec = await swaggerJsdoc(swaggerOptions);
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
   fs.createReadStream(path.resolve(dataFile))
     .pipe(csv.parse({ headers: true, delimiter: ',' }))
     .on('error', (error) => {
@@ -31,10 +38,42 @@ const server = app.listen(port, async () => {
   console.log(`Running on port ${port}`);
 });
 
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     summary: Welcome!
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ */
 app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
+/**
+ * @openapi
+ * /pois:
+ *   post:
+ *     summary: Links clicks and impressions to given points of interest
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: "#/components/schemas/POI"
+ *     responses:
+ *       200:
+ *         description: Returns a dict of points of interest.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               additionalProperties:
+ *                 $ref: "#/components/schemas/ExtendedPOI"
+ */
 app.post('/pois', async (req, res) => {
   try {
     const inputArray = req.body;
@@ -52,4 +91,6 @@ app.post('/pois', async (req, res) => {
   }
 });
 
-module.exports = server;
+export {
+  server,
+};
