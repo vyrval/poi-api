@@ -54,7 +54,7 @@ app.get('/', (_, res) => {
 /**
  * @openapi
  * /pois:
- *   post:
+ *   get:
  *     summary: Links clicks and impressions to given points of interest (brutforce)
  *     requestBody:
  *       required: true
@@ -74,7 +74,7 @@ app.get('/', (_, res) => {
  *               additionalProperties:
  *                 $ref: "#/components/schemas/ExtendedPOI"
  */
-app.post('/pois', async (req, res) => {
+app.get('/pois', async (req, res) => {
   try {
     const inputArray = req.body;
     if (Array.isArray(inputArray)) {
@@ -94,7 +94,7 @@ app.post('/pois', async (req, res) => {
 /**
  * @openapi
  * /pois2:
- *   post:
+ *   get:
  *     summary: Links clicks and impressions to given points of interest
  *     requestBody:
  *       required: true
@@ -114,7 +114,7 @@ app.post('/pois', async (req, res) => {
  *               additionalProperties:
  *                 $ref: "#/components/schemas/ExtendedPOI"
  */
-app.post('/pois2', (req, res) => {
+app.get('/pois2', (req, res) => {
   try {
     const inputArray = req.body;
     if (Array.isArray(inputArray)) {

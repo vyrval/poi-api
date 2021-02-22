@@ -15,14 +15,14 @@ describe('app', () => {
       },
     ];
     request(server)
-      .post('/pois')
+      .get('/pois')
       .send(input)
       .expect(200, done);
   });
   it('should return 400 if input is not an array', (done) => {
     const input = 'hello';
     request(server)
-      .post('/pois')
+      .get('/pois')
       .send(input)
       .expect(400, done);
   });
