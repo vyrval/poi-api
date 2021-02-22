@@ -2,9 +2,9 @@
   "name": "poi-api",
   "version": "0.0.1",
   "description": "Goal is to have a REST API to link clicks and printed ads to points of interest",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "test": "mocha"
