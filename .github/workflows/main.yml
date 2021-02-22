@@ -12,7 +12,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      DATA_FILE: ./test/mock/events.csv
+      DATAFILE: ./test/mock/events.csv
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js
