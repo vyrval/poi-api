@@ -54,7 +54,7 @@ app.get('/', (_, res) => {
 /**
  * @openapi
  * /pois:
- *   post:
+ *   get:
  *     summary: Links clicks and impressions to given points of interest
  *     requestBody:
  *       required: true
@@ -74,7 +74,7 @@ app.get('/', (_, res) => {
  *               additionalProperties:
  *                 $ref: "#/components/schemas/ExtendedPOI"
  */
-app.post('/pois', async (req, res) => {
+app.get('/pois', async (req, res) => {
   try {
     const inputArray = req.body;
     if (Array.isArray(inputArray)) {
