@@ -2,8 +2,6 @@ import geolib from 'geolib';
 
 const { getDistance, getCenterOfBounds } = geolib;
 
-const DIAMETER = 1500;
-
 /**
  * Links points within data to closest poi (BrutForce)
  * @param {point[]} data
@@ -50,9 +48,10 @@ function linkEventsToPOI(data, inputArray) {
  * Links points within data to closest poi
  * @param {Object} clusters a dictionary containing all clusters
  * @param {point_of_interest[]} inputArray points of interest we want to associate data to
+ * @param {Number} clusterDiameter
  * @returns {Object} the point of interest with associated clicks and impressions
  */
-function linkEventsToPOI2(clusters, inputArray) {
+function linkEventsToPOI2(clusters, inputArray, clusterDiameter) {
   if (inputArray.length === 0) {
     return {};
   }
@@ -71,10 +70,10 @@ function linkEventsToPOI2(clusters, inputArray) {
     // going through POIs
     inputArray.forEach((element) => {
       const distPCentre = getDistance(element, c);
-      const distMaxPCercle = distPCentre + DIAMETER / 2;
+      const distMaxPCercle = distPCentre + clusterDiameter / 2;
 
       if (distPCentre < minDist) {
-        if (distMaxPCercle < minDist - DIAMETER / 2) {
+        if (distMaxPCercle < minDist - clusterDiameter / 2) {
           queue = {};
         } else {
           unsure = true;
@@ -120,11 +119,12 @@ function linkEventsToPOI2(clusters, inputArray) {
 /**
  * Groups points into clusters
  * @param {point[]} rawData the list of points
+ * @param {Number} clusterDiameter
  * @returns {Object} a dictionary containing all clusters
  */
-function clusterize(rawData) {
+function clusterize(rawData, clusterDiameter) {
   const clusters = {};
-  let cpt = 0;
+  var cpt = 0;
   rawData.forEach((row) => {
     console.log(`${Math.round((cpt * 100) / rawData.length)}% --- ${cpt += 1}/${rawData.length}`);
     const nbClusters = Object.keys(clusters).length;
@@ -133,7 +133,7 @@ function clusterize(rawData) {
     // going through clusters
     while (!foundCluster && i < nbClusters) {
       const dist = getDistance(row, clusters[i]);
-      if (dist < DIAMETER) {
+      if (dist < clusterDiameter) {
         const newCenter = getCenterOfBounds([...clusters[i].points, row]);
         clusters[i].lat = newCenter.latitude;
         clusters[i].lon = newCenter.longitude;

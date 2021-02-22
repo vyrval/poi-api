@@ -18,6 +18,8 @@ if (!dataFile || dataFile === '') {
   dataFile = './data/events.test.csv';
 }
 
+const DIAMETER = 1500;
+
 let rawData = [];
 let clusters = {};
 
@@ -32,7 +34,7 @@ const server = app.listen(port, async () => {
     .pipe(csv.parse({ headers: true, delimiter: ',' })));
 
   console.log(rawData.length);
-  clusters = clusterize(rawData);
+  clusters = clusterize(rawData, DIAMETER);
   console.log('clusters length', Object.keys(clusters).length);
 
   console.log(`Running on port ${port}`);
@@ -118,7 +120,7 @@ app.get('/pois2', (req, res) => {
   try {
     const inputArray = req.body;
     if (Array.isArray(inputArray)) {
-      res.send(linkEventsToPOI2(clusters, inputArray));
+      res.send(linkEventsToPOI2(clusters, inputArray, DIAMETER));
     } else {
       console.error('app.post', 'input is not an array');
       res.status(400);
