@@ -124,7 +124,7 @@ function linkEventsToPOI2(clusters, inputArray, clusterDiameter) {
  */
 function clusterize(rawData, clusterDiameter) {
   const clusters = {};
-  var cpt = 0;
+  let cpt = 0;
   rawData.forEach((row) => {
     console.log(`${Math.round((cpt * 100) / rawData.length)}% --- ${cpt += 1}/${rawData.length}`);
     const nbClusters = Object.keys(clusters).length;
